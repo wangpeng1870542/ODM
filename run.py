@@ -16,6 +16,8 @@ from opendm.utils import get_processing_results_paths, rm_r
 from opendm.arghelpers import args_to_dict, save_opts, compare_args, find_rerun_stage
 
 from stages.odm_app import ODMApp
+from stages.odm_app_simple import ODMAppSimple
+
 
 def odm_version():
     try:
@@ -61,8 +63,11 @@ if __name__ == '__main__':
                   os.path.join(args.project_path, "submodels")]:
             rm_r(d)
 
-    app = ODMApp(args)
-    retcode = app.execute()
+    #app = ODMApp(args)
+    #retcode = app.execute()
+
+    simpleApp  = ODMAppSimple(args)
+    retcode = simpleApp.execute()
 
     if retcode == 0:
         save_opts(opts_json, args)

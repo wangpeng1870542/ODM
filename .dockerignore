@@ -2,7 +2,6 @@ Dockerfile
 tests/test_data
 SuperBuild/build
 SuperBuild/download
-SuperBuild/install
 SuperBuild/src
 build
 opensfm

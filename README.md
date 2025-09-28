@@ -21,7 +21,7 @@ The easiest way to run ODM is via docker. To install docker, see [docs.docker.co
 docker pull opendronemap/odm
 ```
 
-Run ODM by placing some images (JPEGs, TIFFs or DNGs) in a folder named “images” (for example `C:\Users\youruser\datasets\project\images` or `/home/youruser/datasets/project/images`) and simply run from a Command Prompt / Terminal:
+Run ODM by placing some images (JPEGs, TIFFs or DNGs) in a folder named “images�? (for example `C:\Users\youruser\datasets\project\images` or `/home/youruser/datasets/project/images`) and simply run from a Command Prompt / Terminal:
 
 ```bash
 # Windows
@@ -270,3 +270,11 @@ ODM makes use of [several libraries](https://github.com/OpenDroneMap/ODM/blob/ma
 ## Trademark
 
 See [Trademark Guidelines](https://github.com/OpenDroneMap/documents/blob/master/TRADEMARK.md)
+
+
+
+
+RUN sed -i 's|http://deb.debian.org|http://mirrors.aliyun.com|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.debian.org|http://mirrors.aliyun.com|g' /etc/apt/sources.list && \
+    cat /etc/apt/sources.list && \
+    apt-get update

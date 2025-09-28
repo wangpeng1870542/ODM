@@ -248,6 +248,7 @@ def config(argv=None, parser=None):
                         default=0,
                         type=int,
                         help='Perform image matching with the nearest images based on GPS exif data. Set to 0 to match by triangulation. Default: %(default)s')
+    #需要在设定中指定一个数值 N，表示“从 GPS 近邻中选择最近的 N 张图片进行匹配”；设为 0 即不使用 GPS 近邻，而改为基于三角测量的匹配策略。
 
     parser.add_argument('--matcher-order',
                         metavar='<positive integer>',
@@ -255,13 +256,26 @@ def config(argv=None, parser=None):
                         default=0,
                         type=int,
                         help='Perform image matching with the nearest N images based on image filename order. Can speed up processing of sequential images, such as those extracted from video. It is applied only on non-georeferenced datasets. Set to 0 to disable. Default: %(default)s')
-
+                
     parser.add_argument('--use-fixed-camera-params',
                         action=StoreTrue,
                         nargs=0,
                         default=False,
                         help='Turn off camera parameter optimization during bundle adjustment. This can be sometimes useful for improving results that exhibit doming/bowling or when images are taken with a rolling shutter camera. Default: %(default)s')
-
+                      
+    """
+    use-fixed-camera-params：在束束调整（Bundle Adjustment, BA）阶段将关闭对相机内参（焦距、主点、畸变等）的优化，即使用固定的相机参数进行重建优化。
+    该参数的默认值为 False，即默认情况下 BA 会优化相机参数。
+        适用场景:
+            使用滚动快门相机拍摄的序列图像，畸变模型不易被准确估计时。
+            数据集存在明显的几何畸变趋势，想避免 BA 自行调整内参带来的过拟合。
+            你已经有较稳定的相机内参（通过标定获得），希望在 BA 中保持不变以提高鲁棒性。
+        不推荐场景
+            如果相机参数（内参）本身尚未很好标定或存在显著误差，关闭优化可能导致重建质量下降。
+            对高精度需求且内参信息可靠的场景，通常仍应允许 BA 调整内参。   
+    
+    """
+                 
     parser.add_argument('--cameras',
                         default='',
                         metavar='<json>',
@@ -304,6 +318,9 @@ def config(argv=None, parser=None):
                         help=('The maximum number of processes to use in various '
                               'processes. Peak memory requirement is ~1GB per '
                               'thread and 2 megapixel image resolution. Default: %(default)s'))
+    """
+    峰值算力需求，每个Thread 的峰值算力要求是 1GB，每处理一张2M的图像。20MP图像，20线程，那么200GB？？？
+    """
 
     parser.add_argument('--use-hybrid-bundle-adjustment',
                         action=StoreTrue,

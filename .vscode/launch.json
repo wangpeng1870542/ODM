@@ -1,0 +1,48 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Launch ODM run.py",
+            "type": "python",
+            "request": "launch",
+            "program": "/code/run.py",
+            "args": [                
+                "--project-path",
+                "/odm_data/project",
+                "--end-with",
+                "odm_georeferencing",
+                "--use-hybrid-bundle-adjustment",
+                "--pc-quality",
+                "high",
+                "--pc-las",
+                "--pc-filter",
+                "0",
+                "--gps-accuracy",
+                "0.05",
+                "--feature-type",
+                "sift"
+            ],
+            "env": {
+                "PYTHONPATH": "/code/SuperBuild/install/lib/python3.8/dist-packages:/code/SuperBuild/install/bin/opensfm:${env:PYTHONPATH}",
+                "LD_LIBRARY_PATH": "/code/SuperBuild/install/lib:${env:LD_LIBRARY_PATH}",
+                "PDAL_DRIVER_PATH": "/code/SuperBuild/install/bin"
+            },
+            "console": "integratedTerminal",
+            "justMyCode": false,
+            "cwd": "/code"
+        },
+        {
+            "type": "cmake",
+            "request": "launch",
+            "name": "Debug portfile(s)",
+            "cmakeDebugType": "external",
+            "pipeName": "\\\\.\\pipe\\vcpkg_ext_portfile_dbg",
+            "preLaunchTask": "Debug vcpkg commands"
+        }
+    ]
+}
+
+
